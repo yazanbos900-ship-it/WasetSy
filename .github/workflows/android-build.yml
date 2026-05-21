@@ -23,8 +23,10 @@ jobs:
       - name: Fix Tailwind oxide native binding
         run: |
           OXIDE_VERSION=$(node -e "console.log(require('./node_modules/@tailwindcss/oxide/package.json').version)")
-          echo "Installing @tailwindcss/oxide-linux-x64-gnu@$OXIDE_VERSION"
+          echo "Oxide version: $OXIDE_VERSION"
           npm install --no-save @tailwindcss/oxide-linux-x64-gnu@$OXIDE_VERSION
+          mkdir -p node_modules/@tailwindcss/oxide/node_modules/@tailwindcss
+          cp -r node_modules/@tailwindcss/oxide-linux-x64-gnu node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/
 
       - name: Build Web Assets (React JS/TS)
         run: |
