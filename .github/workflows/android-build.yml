@@ -20,6 +20,12 @@ jobs:
           rm -rf node_modules package-lock.json
           npm install
 
+      - name: Fix Tailwind oxide native binding
+        run: |
+          OXIDE_VERSION=$(node -e "console.log(require('./node_modules/@tailwindcss/oxide/package.json').version)")
+          echo "Installing @tailwindcss/oxide-linux-x64-gnu@$OXIDE_VERSION"
+          npm install --no-save @tailwindcss/oxide-linux-x64-gnu@$OXIDE_VERSION
+
       - name: Build Web Assets (React JS/TS)
         run: |
           npm run build
