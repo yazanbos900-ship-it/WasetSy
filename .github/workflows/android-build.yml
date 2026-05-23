@@ -36,11 +36,12 @@ jobs:
         run: |
           npx cap sync android
 
+      - name: Show Gradle properties
+        run: cat android/gradle/wrapper/gradle-wrapper.properties
+
       - name: Download Gradle wrapper jar
         run: |
-          GRADLE_VERSION=$(grep distributionUrl android/gradle/wrapper/gradle-wrapper.properties | grep -oP 'gradle-\K[0-9]+\.[0-9]+(\.[0-9]+)?')
-          echo "Gradle version: $GRADLE_VERSION"
-          curl -L "https://github.com/gradle/gradle/raw/v${GRADLE_VERSION}/gradle/wrapper/gradle-wrapper.jar" \
+          curl -fL "https://github.com/gradle/gradle/raw/v8.11.1/gradle/wrapper/gradle-wrapper.jar" \
             -o android/gradle/wrapper/gradle-wrapper.jar
 
       - name: Grant Execution permissions for Gradle wrapper
@@ -51,9 +52,7 @@ jobs:
           cd android && ./gradlew assembleDebug
 
       - name: Check build output
-        run: |
-          find . -name "*.apk" 2>/dev/null
-          ls -la android/app/build/outputs/ 2>/dev/null || echo "No outputs folder"
+        run: find . -name "*.apk" 2>/dev/null
 
       - name: Upload Compiled APK (Artifact)
         uses: actions/upload-artifact@v4
