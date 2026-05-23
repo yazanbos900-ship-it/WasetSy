@@ -45,8 +45,12 @@ jobs:
         run: |
           cd android && ./gradlew assembleDebug
 
-      - name: Find APK
-        run: find . -name "*.apk" 2>/dev/null
+      - name: Check build output
+        run: |
+          echo "=== Searching for APK ==="
+          find . -name "*.apk" 2>/dev/null
+          echo "=== Build outputs ==="
+          ls -la android/app/build/outputs/ 2>/dev/null || echo "No outputs folder"
 
       - name: Upload Compiled APK (Artifact)
         uses: actions/upload-artifact@v4
