@@ -6,6 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      GIT_TERMINAL_PROMPT: 0
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
