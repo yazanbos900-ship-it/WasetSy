@@ -45,7 +45,7 @@ jobs:
 
       - name: Compile and Build Debug APK
         run: |
-          cd android && ./gradlew assembleDebug
+          cd android && ./gradlew :app:assembleDebug
 
       - name: Find APK
         run: |
